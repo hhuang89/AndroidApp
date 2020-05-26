@@ -7,4 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="CategoryButtonSize">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

@@ -6,30 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="165dp"
-        android:layout_height="105dp"
-        android:layout_marginTop="468dp"
-        android:layout_marginEnd="120dp"
-        android:text="@string/button1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:layout_width="165dp"
-        android:layout_height="105dp"
+        style="@style/CategoryButtonSize"
         android:layout_marginTop="350dp"
-        android:layout_marginEnd="120dp"
-        android:text="@string/button2"
+        android:text="@string/category3"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <Button
+        style="@style/CategoryButtonSize"
+        android:layout_marginTop="440dp"
+        android:text="@string/category1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        style="@style/CategoryButtonSize"
+        android:layout_marginTop="530dp"
+        android:text="@string/category2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="96dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -39,5 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/Title"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
