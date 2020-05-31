@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent listIntent = new Intent(getBaseContext(), ListActivity.class);
+                String fiction = "fiction";
+                listIntent.putExtra("fictionkey", fiction);
                 startActivity(listIntent);
+            }
+        });
+
+        Button historyButton = (Button) findViewById(R.id.history_button);
+        historyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent historyListView = new Intent(getBaseContext(), ListActivity.class);
+                String history = "history";
+                historyListView.putExtra("historykey", history);
+                startActivity(historyListView);
             }
         });
     }

@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/history_button"
         style="@style/CategoryButtonSize"
         android:layout_marginTop="440dp"
         android:text="@string/category1"

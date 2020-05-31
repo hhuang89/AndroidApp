@@ -14,10 +14,32 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        List<Book> booksList = DataProvider.getBooks();
-        BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
-                booksList);
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(itemsAdapter);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String category1 = extras.getString("fictionkey");
+            String category2 = extras.getString("historykey");
+
+            if(category1 == null){
+                category1 = "temp1";
+            }
+
+            if(category1.equals("fiction")){
+                List<Book> booksList = DataProvider.getBooks();
+                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                        booksList);
+                ListView listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(itemsAdapter);
+            }
+            else if(category2.equals("history")){
+                List<Book> booksList = DataProvider.getFictionBooks();
+                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                        booksList);
+                ListView listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(itemsAdapter);
+            }
+        }
+
+
+
     }
 }
