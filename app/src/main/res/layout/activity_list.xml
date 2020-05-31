@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".ListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,29 +16,14 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cancel"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/CategoryName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Category"
-                android:textSize="20dp"/>
-        </LinearLayout>
-
-
-
+            android:text="cancel"
+            android:textSize="20sp"/>
     </LinearLayout>
 
 
 
     <ListView
-        android:id="@+id/lvBooks"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
