@@ -73,7 +73,9 @@ public class DataProvider {
             String titleName = books.get(key).get(0);
             String authorName = books.get(key).get(1);
 
-            Book book = new Book(bookCoverName, titleName, authorName);
+            String image2 = "f"+String.valueOf(key)+"_2";
+            String image3 = "f"+String.valueOf(key)+"_3";
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
             booksList.add(book);
         }
 
@@ -144,8 +146,10 @@ public class DataProvider {
             String bookCoverName = "h"+String.valueOf(key)+"_1";
             String titleName = books.get(key).get(0);
             String authorName = books.get(key).get(1);
+            String image2 = "h"+String.valueOf(key)+"_2";
+            String image3 = "h"+String.valueOf(key)+"_3";
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
 
-            Book book = new Book(bookCoverName, titleName, authorName);
             booksList.add(book);
         }
 
@@ -216,8 +220,9 @@ public class DataProvider {
             String bookCoverName = "b"+String.valueOf(key)+"_1";
             String titleName = books.get(key).get(0);
             String authorName = books.get(key).get(1);
-
-            Book book = new Book(bookCoverName, titleName, authorName);
+            String image2 = "b"+String.valueOf(key)+"_2";
+            String image3 = "b"+String.valueOf(key)+"_3";
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
             booksList.add(book);
         }
 

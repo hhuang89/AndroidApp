@@ -1,15 +1,22 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-
+    ListView listView;
+    BookAdapter itemsAdapter;
+    public static final String BOOK_DETAIL_KEY = "book";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,27 +36,42 @@ public class ListActivity extends AppCompatActivity {
 
             if(category1.equals("fiction")){
                 List<Book> booksList = DataProvider.getBooks();
-                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
-                ListView listView = (ListView) findViewById(R.id.listView);
+                listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
             else if(category2.equals("history")){
                 List<Book> booksList = DataProvider.getFictionBooks();
-                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
-                ListView listView = (ListView) findViewById(R.id.listView);
+                listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
             else if(category3.equals("business")){
                 List<Book> booksList = DataProvider.getBusinessBooks();
-                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
-                ListView listView = (ListView) findViewById(R.id.listView);
+                listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
+            setupBookSelectedListener();
         }
     }
+
+    public void setupBookSelectedListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Launch the detail view passing book as an extra
+                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                Object item = itemsAdapter.mBooks.get(position);
+                intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);

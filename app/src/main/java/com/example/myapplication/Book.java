@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
-public class Book {
+import java.io.Serializable;
 
-    String bookCoverName, titleName, authorName;
+public class Book implements Serializable {
+
+    String bookCoverName, titleName, authorName, image2, image3;
 
     public String getAuthorName() {
         return authorName;
@@ -16,9 +18,20 @@ public class Book {
         return titleName;
     }
 
-    public Book(String bookCoverName, String titleName, String authorName){
+    public String getImage2() {
+        return image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public Book(String bookCoverName, String titleName, String authorName, String image2, String image3){
         this.authorName = authorName;
         this.bookCoverName = bookCoverName;
         this.titleName = titleName;
+        this.image2 = image2;
+        this.image3 = image3;
     }
+
 }
