@@ -18,9 +18,12 @@ public class ListActivity extends AppCompatActivity {
         if(extras != null){
             String category1 = extras.getString("fictionkey");
             String category2 = extras.getString("historykey");
-
+            String category3 = extras.getString("businesskey");
             if(category1 == null){
                 category1 = "temp1";
+            }
+            if(category2 == null){
+                category2 = "temp2";
             }
 
             if(category1.equals("fiction")){
@@ -32,6 +35,13 @@ public class ListActivity extends AppCompatActivity {
             }
             else if(category2.equals("history")){
                 List<Book> booksList = DataProvider.getFictionBooks();
+                BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                        booksList);
+                ListView listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(itemsAdapter);
+            }
+            else if(category3.equals("business")){
+                List<Book> booksList = DataProvider.getBusinessBooks();
                 BookAdapter itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 ListView listView = (ListView) findViewById(R.id.listView);

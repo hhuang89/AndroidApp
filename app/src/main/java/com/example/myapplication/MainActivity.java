@@ -36,5 +36,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(historyListView);
             }
         });
+
+        Button businessButton = (Button) findViewById(R.id.business_button);
+        businessButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent businessListView = new Intent(getBaseContext(), ListActivity.class);
+                String business = "business";
+                businessListView.putExtra("businesskey", business);
+                startActivity(businessListView);
+            }
+        });
     }
 }

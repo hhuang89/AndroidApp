@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
+        android:id="@+id/business_button"
         style="@style/CategoryButtonSize"
         android:layout_marginTop="530dp"
         android:text="@string/category2"
