@@ -2,22 +2,30 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BookAdapter extends ArrayAdapter {
 
     int mLayoutID;
     List<Book> mBooks;
     Context mContext;
+
 
     public BookAdapter(@NonNull Context context, int resource, @NonNull List objects) {
         super(context, resource, objects);
@@ -56,5 +64,11 @@ public class BookAdapter extends ArrayAdapter {
 
         return currentListViewItem;
     }
+    public void filter(String charText){
+        charText = charText.toLowerCase(Locale.getDefault());
+
+    }
+
+
 
 }

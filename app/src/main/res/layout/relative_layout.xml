@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
         <ImageView
             android:id="@+id/rlBookCover"
             android:layout_width="56dp"
@@ -38,6 +39,8 @@
             android:layout_marginBottom="10dp"
             android:layout_toRightOf="@+id/rlBookCover"
             android:textSize="12sp" />
+
+
 
 
     </RelativeLayout>
