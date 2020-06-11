@@ -23,12 +23,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity implements  Filterable{
-    ListView listView;
+public class ListActivity extends AppCompatActivity {
+    ListView listView,listView2;
     BookAdapter itemsAdapter;
     BookAdapter fictionAdapter;
     List<Book> fiction = DataProvider.getBooks();
-    List<Book> fictionfiltered = DataProvider.getBooks();
+
 
 
 
@@ -40,9 +40,9 @@ public class ListActivity extends AppCompatActivity implements  Filterable{
         setContentView(R.layout.activity_list);
 
 
-        fictionAdapter = new BookAdapter(this, R.layout.relative_layout, fiction);
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(fictionAdapter);
+        fictionAdapter = new BookAdapter(this, R.layout.activity_list, fiction);
+        listView2 = (ListView) findViewById(R.id.listView);
+        listView2.setAdapter(fictionAdapter);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -97,28 +97,44 @@ public class ListActivity extends AppCompatActivity implements  Filterable{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) item.getActionView();
+        final MenuItem item = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+
+
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                item.collapseActionView();
+
+                //complete SearchActivity by yourself
+
+                // Set activity title to search query
+                ListActivity.this.setTitle(query);
+                return true;
+
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    // Clear the text filter.
+                    listView2.clearTextFilter();
+                } else {
+                    // Sets the initial value for the text filter.
+                    listView2.setFilterText(newText.toString());
+                }
 
-
-               itemsAdapter.getFilter().filter(newText);
-
-                return true;
+                return false;
             }
         });
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.search){
             return true;
@@ -126,36 +142,5 @@ public class ListActivity extends AppCompatActivity implements  Filterable{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public Filter getFilter() {
-        Filter filter = new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-                if(constraint == null || constraint.length()==0){
-                    filterResults.count = fiction.size();
-                    filterResults.values = fiction;
-                }else{
-                    String searchStr = constraint.toString().toUpperCase();
-                    List<Book>  resultData = new ArrayList<>();
-                    for (Book Book:fiction){
-                        if (Book.getTitleName().contains(searchStr)){
-                            resultData.add(Book);
-                        }
-                        filterResults.count = resultData.size();
-                        filterResults.values = resultData;
-                    }
-                }
-                return filterResults;
-            }
 
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                fictionfiltered = (List<Book>) results.values;
-
-
-            }
-        };
-        return filter;
-    }
 }

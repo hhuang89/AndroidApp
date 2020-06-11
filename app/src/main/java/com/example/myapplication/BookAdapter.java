@@ -64,10 +64,7 @@ public class BookAdapter extends ArrayAdapter {
 
         return currentListViewItem;
     }
-    public void filter(String charText){
-        charText = charText.toLowerCase(Locale.getDefault());
 
-    }
 
 
 
