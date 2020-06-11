@@ -64,8 +64,4 @@ public class BookAdapter extends ArrayAdapter {
 
         return currentListViewItem;
     }
-
-
-
-
 }
