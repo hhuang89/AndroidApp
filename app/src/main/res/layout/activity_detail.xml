@@ -22,12 +22,14 @@
         android:id="@+id/adTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="58sp"/>
+        android:gravity="center"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/adAuthor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="48sp"/>
+        android:gravity="center"
+        android:textSize="15sp"/>
 
 </LinearLayout>
