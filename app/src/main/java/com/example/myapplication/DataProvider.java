@@ -72,10 +72,10 @@ public class DataProvider {
             String bookCoverName = "f"+String.valueOf(key)+"_1";
             String titleName = books.get(key).get(0);
             String authorName = books.get(key).get(1);
-
             String image2 = "f"+String.valueOf(key)+"_2";
             String image3 = "f"+String.valueOf(key)+"_3";
-            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
+            int count = (int) (Math.random()*50);
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3, count);
             booksList.add(book);
         }
 
@@ -148,7 +148,8 @@ public class DataProvider {
             String authorName = books.get(key).get(1);
             String image2 = "h"+String.valueOf(key)+"_2";
             String image3 = "h"+String.valueOf(key)+"_3";
-            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
+            int count = (int) (Math.random()*50);
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3, count);
 
             booksList.add(book);
         }
@@ -213,6 +214,7 @@ public class DataProvider {
         return bisBook;
     }
 
+
     public static List<Book> getBusinessBooks() {
         List<Book> booksList = new ArrayList<Book>();
         Map<Integer, List<String>> books = generateBusinessInfo();
@@ -222,7 +224,8 @@ public class DataProvider {
             String authorName = books.get(key).get(1);
             String image2 = "b"+String.valueOf(key)+"_2";
             String image3 = "b"+String.valueOf(key)+"_3";
-            Book book = new Book(bookCoverName, titleName, authorName, image2, image3);
+            int count = (int) (Math.random()*50);
+            Book book = new Book(bookCoverName, titleName, authorName, image2, image3, count);
             booksList.add(book);
         }
 

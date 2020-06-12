@@ -16,6 +16,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView adTitle;
     TextView adAuthor;
     int[] resID;
+    Book book;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         adAuthor = (TextView) findViewById(R.id.adAuthor);
 
         Intent intent = getIntent();
-        Book book = (Book) intent.getSerializableExtra(ListActivity.BOOK_DETAIL_KEY);
+        book = (Book) intent.getSerializableExtra(ListActivity.BOOK_DETAIL_KEY);
         loadBook(book);
     }
 
@@ -49,6 +50,8 @@ public class DetailActivity extends AppCompatActivity {
         resID = new int[]{i,j,z};
         carouselView.setPageCount(resID.length);
         carouselView.setImageListener(imageListener);
+        book.setCount(book.getCount()+1);
+
     }
 
     ImageListener imageListener = new ImageListener() {
@@ -57,4 +60,12 @@ public class DetailActivity extends AppCompatActivity {
             imageView.setImageResource(resID[position]);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(ListActivity.BOOK_DETAIL_KEY, book);
+        setResult(0, intent);
+        finish();
+    }
 }

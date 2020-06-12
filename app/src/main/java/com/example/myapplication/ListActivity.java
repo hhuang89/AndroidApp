@@ -25,15 +25,13 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     ListView listView;
-    BookAdapter itemsAdapter;
+    public static BookAdapter itemsAdapter;
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
     List<Book> fiction = DataProvider.getFictionBooks();
     List<Book> history = DataProvider.getHistoryBooks();
     List<Book> business = DataProvider.getBusinessBooks();
-
-
 
     public static final String BOOK_DETAIL_KEY = "book";
     @Override
@@ -54,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             if(category1.equals("fiction")){
-                List<Book> booksList = DataProvider.getFictionBooks();
+                List<Book> booksList = MainActivity.Fiction;
                 fictionSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
@@ -62,7 +60,7 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(itemsAdapter);
             }
             else if(category2.equals("history")){
-                List<Book> booksList = DataProvider.getHistoryBooks();
+                List<Book> booksList = MainActivity.History;
                 historySearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
@@ -70,7 +68,7 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(itemsAdapter);
             }
             else if(category3.equals("business")){
-                List<Book> booksList = DataProvider.getBusinessBooks();
+                List<Book> booksList = MainActivity.Business;
                 businessSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
@@ -87,9 +85,9 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                Object item = itemsAdapter.mBooks.get(position);
                 intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
     }

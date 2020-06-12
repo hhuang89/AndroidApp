@@ -13,20 +13,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
 
-
+    static List<Book> Fiction = DataProvider.getFictionBooks();
+    static List<Book> Business = DataProvider.getBusinessBooks();
+    static List<Book> History = DataProvider.getHistoryBooks();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Book> fiction = DataProvider.getFictionBooks();
-
+        //RecycleView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.top3View);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         //linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(this, fiction);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(this, Fiction);
         recyclerView.setAdapter(adapter);
 
         Button fictionButton = (Button) findViewById(R.id.button);
