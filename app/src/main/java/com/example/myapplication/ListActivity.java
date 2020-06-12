@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    ListView listView,listView2;
+    ListView listView;
     BookAdapter itemsAdapter;
-    BookAdapter fictionAdapter;
+    boolean fictionSearch = false;
+    boolean historySearch = false;
+    boolean businessSearch = false;
     List<Book> fiction = DataProvider.getBooks();
-
-
+    List<Book> history = DataProvider.getFictionBooks();
+    List<Book> business = DataProvider.getBusinessBooks();
 
 
 
@@ -39,10 +41,6 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-
-        fictionAdapter = new BookAdapter(this, R.layout.activity_list, fiction);
-        listView2 = (ListView) findViewById(R.id.listView);
-        listView2.setAdapter(fictionAdapter);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -93,7 +91,6 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
@@ -102,37 +99,44 @@ public class ListActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-
-                searchView.clearFocus();
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-                item.collapseActionView();
-
-                //complete SearchActivity by yourself
-
-                // Set activity title to search query
-                ListActivity.this.setTitle(query);
-                return true;
-
+                return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    // Clear the text filter.
-                    listView2.clearTextFilter();
-                } else {
-                    // Sets the initial value for the text filter.
-                    listView2.setFilterText(newText.toString());
+                List<Book> results = new ArrayList<>();
+                if (fictionSearch){
+                    for (Book x:fiction){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                            results.add(x);
+                        }
+                    }
+                    BookAdapter fiction = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    fiction.update(results);
+                    listView.setAdapter(fiction);
+                }else if (historySearch){
+                    for (Book x:history){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                            results.add(x);
+                        }
+                    }
+                    BookAdapter history = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    history.update(results);
+                    listView.setAdapter(history);
+                }else if (businessSearch){
+                    for (Book x:business){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                            results.add(x);
+                        }
+                    }
+                    BookAdapter business = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    business.update(results);
+                    listView.setAdapter(business);
                 }
-
                 return false;
             }
         });
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -141,5 +145,4 @@ public class ListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -34,6 +34,12 @@ public class BookAdapter extends ArrayAdapter {
         mBooks = objects;
     }
 
+    public void update(List<Book> results){
+        mBooks = new ArrayList<>();
+        mBooks.addAll(results);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
