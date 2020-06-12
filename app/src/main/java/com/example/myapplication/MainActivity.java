@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity  {
     static List<Book> Fiction = DataProvider.getFictionBooks();
     static List<Book> Business = DataProvider.getBusinessBooks();
     static List<Book> History = DataProvider.getHistoryBooks();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

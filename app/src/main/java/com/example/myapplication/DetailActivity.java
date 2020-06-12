@@ -17,6 +17,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView adAuthor;
     int[] resID;
     Book book;
+    public static int REQUEST_UPDATE = 10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +64,9 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, ListActivity.class);
         intent.putExtra(ListActivity.BOOK_DETAIL_KEY, book);
-        setResult(0, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

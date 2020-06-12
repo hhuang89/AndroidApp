@@ -73,4 +73,11 @@ public class BookAdapter extends ArrayAdapter {
 
         return currentListViewItem;
     }
+
+    public void updateListView(int position, Book book){
+        Book book1 = (Book) getItem(position);
+        //assert book1 != null;
+        book1.setCount(book.getCount());
+        notifyDataSetChanged();
+    }
 }

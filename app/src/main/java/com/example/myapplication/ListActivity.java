@@ -26,6 +26,7 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity {
     ListView listView;
     public static BookAdapter itemsAdapter;
+    public int adapterUpdateItemPosition;
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
@@ -67,13 +68,16 @@ public class ListActivity extends AppCompatActivity {
                 listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
-            else if(category3.equals("business")){
-                List<Book> booksList = MainActivity.Business;
-                businessSearch = true;
-                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
-                        booksList);
-                listView = (ListView) findViewById(R.id.listView);
-                listView.setAdapter(itemsAdapter);
+            else {
+                assert category3 != null;
+                if(category3.equals("business")){
+                    List<Book> booksList = MainActivity.Business;
+                    businessSearch = true;
+                    itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                            booksList);
+                    listView = (ListView) findViewById(R.id.listView);
+                    listView.setAdapter(itemsAdapter);
+                }
             }
             setupBookSelectedListener();
         }
@@ -85,9 +89,10 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
+                adapterUpdateItemPosition = position;
+                intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(adapterUpdateItemPosition));
                 //startActivity(intent);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
             }
         });
     }
@@ -144,6 +149,15 @@ public class ListActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if (requestCode == DetailActivity.REQUEST_UPDATE){
+                itemsAdapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+            }
+        }
     }
 
 }
