@@ -96,6 +96,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
@@ -159,5 +160,4 @@ public class ListActivity extends AppCompatActivity {
             }
         }
     }
-
 }

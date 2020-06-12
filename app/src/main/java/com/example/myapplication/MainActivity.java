@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-
+    public List<Book> sortView(){
+        List<Book> sortedList = Fiction;
+        sortedList.addAll(Business);
+        sortedList.addAll(History);
+        return sortedList;
+    }
 
 }
