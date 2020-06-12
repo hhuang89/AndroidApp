@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Book> fiction = DataProvider.getBooks();
+        List<Book> fiction = DataProvider.getFictionBooks();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.top3View);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);

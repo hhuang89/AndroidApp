@@ -29,8 +29,8 @@ public class ListActivity extends AppCompatActivity {
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
-    List<Book> fiction = DataProvider.getBooks();
-    List<Book> history = DataProvider.getFictionBooks();
+    List<Book> fiction = DataProvider.getFictionBooks();
+    List<Book> history = DataProvider.getHistoryBooks();
     List<Book> business = DataProvider.getBusinessBooks();
 
 
@@ -54,7 +54,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             if(category1.equals("fiction")){
-                List<Book> booksList = DataProvider.getBooks();
+                List<Book> booksList = DataProvider.getFictionBooks();
                 fictionSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);

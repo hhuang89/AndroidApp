@@ -65,7 +65,7 @@ public class DataProvider {
         return book;
     }
 
-    public static List<Book> getBooks() {
+    public static List<Book> getFictionBooks() {
         List<Book> booksList = new ArrayList<Book>();
         Map<Integer, List<String>> books = generateFictionInfo();
         for (Integer key : books.keySet()) {
@@ -139,7 +139,7 @@ public class DataProvider {
         return hisBook;
     }
 
-    public static List<Book> getFictionBooks() {
+    public static List<Book> getHistoryBooks() {
         List<Book> booksList = new ArrayList<Book>();
         Map<Integer, List<String>> books = generateHistoryInfo();
         for (Integer key : books.keySet()) {
