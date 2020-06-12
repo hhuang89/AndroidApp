@@ -63,6 +63,16 @@ public class MainActivity extends AppCompatActivity  {
                 startActivity(businessListView);
             }
         });
+        Button Searchbutton = (Button) findViewById(R.id.Searchbutton);
+        Searchbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent Search = new Intent(getBaseContext(), SearchActivity.class);
+//                String business = "business";
+//                businessListView.putExtra("businesskey", business);
+                startActivity(Search);
+            }
+        });
     }
     public List<Book> sortView(){
         List<Book> sortedList = Fiction;
