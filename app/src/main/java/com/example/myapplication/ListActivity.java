@@ -62,7 +62,7 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(itemsAdapter);
             }
             else if(category2.equals("history")){
-                List<Book> booksList = DataProvider.getFictionBooks();
+                List<Book> booksList = DataProvider.getHistoryBooks();
                 historySearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
