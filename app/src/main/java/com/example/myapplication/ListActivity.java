@@ -41,7 +41,6 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             String category1 = extras.getString("fictionkey");
@@ -56,6 +55,7 @@ public class ListActivity extends AppCompatActivity {
 
             if(category1.equals("fiction")){
                 List<Book> booksList = DataProvider.getBooks();
+                fictionSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 listView = (ListView) findViewById(R.id.listView);
@@ -63,6 +63,7 @@ public class ListActivity extends AppCompatActivity {
             }
             else if(category2.equals("history")){
                 List<Book> booksList = DataProvider.getFictionBooks();
+                historySearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 listView = (ListView) findViewById(R.id.listView);
@@ -70,6 +71,7 @@ public class ListActivity extends AppCompatActivity {
             }
             else if(category3.equals("business")){
                 List<Book> booksList = DataProvider.getBusinessBooks();
+                businessSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 listView = (ListView) findViewById(R.id.listView);
@@ -145,4 +147,5 @@ public class ListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
