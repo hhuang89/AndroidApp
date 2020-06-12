@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -25,10 +27,12 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     ListView listView;
-    public static BookAdapter itemsAdapter;
+    BookAdapter itemsAdapter;
+    BookAdapter resultAdapter;
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
+    boolean textset;
     List<Book> fiction = DataProvider.getFictionBooks();
     List<Book> history = DataProvider.getHistoryBooks();
     List<Book> business = DataProvider.getBusinessBooks();
@@ -79,15 +83,20 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+
     public void setupBookSelectedListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
-                //startActivity(intent);
-                startActivityForResult(intent, 0);
+                Object item = itemsAdapter.mBooks.get(position);
+                if (textset){
+                    intent.putExtra(BOOK_DETAIL_KEY, resultAdapter.mBooks.get(position));
+                }else{
+                    intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
+                }
+                startActivity(intent);
             }
         });
     }
@@ -104,33 +113,47 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<Book> results = new ArrayList<>();
+                if (newText != null){
+                    textset = true;
+                }else{
+                    textset = false;
+                }
                 if (fictionSearch){
                     for (Book x:fiction){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter fiction = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    fiction.update(results);
-                    listView.setAdapter(fiction);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
                 }else if (historySearch){
                     for (Book x:history){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter history = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    history.update(results);
-                    listView.setAdapter(history);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
                 }else if (businessSearch){
                     for (Book x:business){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter business = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    business.update(results);
-                    listView.setAdapter(business);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
+                }
+                if (results.size() ==0){
+
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "No matching books found",
+                            Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+
                 }
                 return false;
             }
