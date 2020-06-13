@@ -93,9 +93,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         }
-        TopPicks.add(Fiction.get(0));
-        TopPicks.add(Fiction.get(1));
-        TopPicks.add(Fiction.get(2));
+
         for (int i = 0; i < Business.size()-1; i++){
             for (int j = 0; j < Business.size()-i-1; j++) {
                 if (Business.get(j).getCount() < Business.get(j + 1).getCount()) {
@@ -105,9 +103,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         }
-        TopPicks.add(Business.get(0));
-        TopPicks.add(Business.get(1));
-        TopPicks.add(Business.get(2));
+
         for (int i = 0; i < History.size()-1; i++){
             for (int j = 0; j < History.size()-i-1; j++) {
                 if (History.get(j).getCount() < History.get(j + 1).getCount()) {
@@ -117,9 +113,13 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         }
-        TopPicks.add(History.get(0));
-        TopPicks.add(History.get(1));
-        TopPicks.add(History.get(2));
+
+        for(int i = 0; i < 10; i++){
+            TopPicks.add(Fiction.get(i));
+            TopPicks.add(Business.get(i));
+            TopPicks.add(History.get(i));
+        }
+
         for (int i = 0; i < TopPicks.size()-1; i++){
             for (int j = 0; j < TopPicks.size()-i-1; j++) {
                 if (TopPicks.get(j).getCount() < TopPicks.get(j + 1).getCount()) {

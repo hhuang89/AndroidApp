@@ -183,7 +183,7 @@ public class ListActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         Intent intent = new Intent(this, MainActivity.class);
-//        MainActivity.toppicks = MainActivity.sortView();
+        MainActivity.toppicks = MainActivity.sortView();
         intent.putExtra(MainActivity.updateRecycleViewKey, (Serializable) MainActivity.toppicks);
         setResult(RESULT_OK, intent);
         finish();
