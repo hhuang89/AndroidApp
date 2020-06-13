@@ -25,14 +25,18 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     ListView listView;
-    public static BookAdapter itemsAdapter;
+    BookAdapter itemsAdapter;
+    BookAdapter resultAdapter;
     public int adapterUpdateItemPosition;
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
+    boolean textset;
     List<Book> fiction = DataProvider.getFictionBooks();
     List<Book> history = DataProvider.getHistoryBooks();
     List<Book> business = DataProvider.getBusinessBooks();
+
+
 
     public static final String BOOK_DETAIL_KEY = "book";
     @Override
@@ -53,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             if(category1.equals("fiction")){
-                List<Book> booksList = MainActivity.Fiction;
+                List<Book> booksList = DataProvider.getFictionBooks();
                 fictionSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
@@ -61,26 +65,24 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(itemsAdapter);
             }
             else if(category2.equals("history")){
-                List<Book> booksList = MainActivity.History;
+                List<Book> booksList = DataProvider.getHistoryBooks();
                 historySearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
-            else {
-                assert category3 != null;
-                if(category3.equals("business")){
-                    List<Book> booksList = MainActivity.Business;
-                    businessSearch = true;
-                    itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
-                            booksList);
-                    listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(itemsAdapter);
-                }
+            else if(category3.equals("business")){
+                List<Book> booksList = DataProvider.getBusinessBooks();
+                businessSearch = true;
+                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                        booksList);
+                listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(itemsAdapter);
             }
             setupBookSelectedListener();
         }
+
     }
 
     public void setupBookSelectedListener() {
@@ -89,14 +91,16 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                adapterUpdateItemPosition = position;
-                intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(adapterUpdateItemPosition));
-                //startActivity(intent);
-                startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
+                Object item = itemsAdapter.mBooks.get(position);
+                if (textset){
+                    intent.putExtra(BOOK_DETAIL_KEY, resultAdapter.mBooks.get(position));
+                }else{
+                    intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
+                }
+                startActivity(intent);
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
@@ -110,33 +114,38 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<Book> results = new ArrayList<>();
+                if (newText != null){
+                    textset = true;
+                }else{
+                    textset = false;
+                }
                 if (fictionSearch){
                     for (Book x:fiction){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter fiction = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    fiction.update(results);
-                    listView.setAdapter(fiction);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
                 }else if (historySearch){
                     for (Book x:history){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter history = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    history.update(results);
-                    listView.setAdapter(history);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
                 }else if (businessSearch){
                     for (Book x:business){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())||x.getAuthorName().toLowerCase().contains(newText.toLowerCase())){
+                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
                             results.add(x);
                         }
                     }
-                    BookAdapter business = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    business.update(results);
-                    listView.setAdapter(business);
+                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+                    resultAdapter.update(results);
+                    listView.setAdapter(resultAdapter);
                 }
                 return false;
             }

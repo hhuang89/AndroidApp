@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
@@ -16,19 +19,21 @@ public class MainActivity extends AppCompatActivity  {
     static List<Book> Fiction = DataProvider.getFictionBooks();
     static List<Book> Business = DataProvider.getBusinessBooks();
     static List<Book> History = DataProvider.getHistoryBooks();
-
+    List<Book> toppicks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toppicks = sortView();
         //RecycleView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.top3View);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         //linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(this, Fiction);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(this, toppicks);
         recyclerView.setAdapter(adapter);
 
         Button fictionButton = (Button) findViewById(R.id.button);
@@ -68,17 +73,39 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent Search = new Intent(getBaseContext(), SearchActivity.class);
-//                String business = "business";
-//                businessListView.putExtra("businesskey", business);
                 startActivity(Search);
             }
         });
     }
     public List<Book> sortView(){
-        List<Book> sortedList = Fiction;
-        sortedList.addAll(Business);
-        sortedList.addAll(History);
-        return sortedList;
+        List<Book> books =Fiction;
+        ArrayList<Book> sortedList  = new ArrayList<>();
+        ArrayList<Book> TopPicks  = new ArrayList<>();
+        books.addAll(Business);
+        books.addAll(History);
+
+        ArrayList<Integer> NumberOfClicks = new ArrayList<Integer>();
+
+        for (Book x:books){
+            NumberOfClicks.add(x.getCount());
+        }
+
+        Collections.sort(NumberOfClicks);
+        for (Book x:books){
+            NumberOfClicks.add(x.getCount());
+        }
+        for (int y:NumberOfClicks){
+            for (Book x:books){
+                if (x.getCount()==y){
+                    sortedList.add(x);
+                }
+            }
+        }
+        Collections.reverse(sortedList);
+        TopPicks.add(sortedList.get(0));
+        TopPicks.add(sortedList.get(1));
+        TopPicks.add(sortedList.get(2));
+        return TopPicks;
     }
 
 }
