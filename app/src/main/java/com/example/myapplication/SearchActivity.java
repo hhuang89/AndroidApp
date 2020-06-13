@@ -19,15 +19,17 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     ListView searchbooks;
-    List<Book> fiction = DataProvider.getFictionBooks();
-    List<Book> history = DataProvider.getHistoryBooks();
-    List<Book> business = DataProvider.getBusinessBooks();
-    BookAdapter adapter;
+    public int adapterUpdateItemPosition;
+    List<Book> fiction = MainActivity.Fiction;
+    List<Book> history = MainActivity.History;
+    List<Book> business = MainActivity.Business;
+    public static BookAdapter adapter;
     BookAdapter resultadapter;
     ArrayList<Book> books = new ArrayList<>();
     boolean textset;
 
     public static final String BOOK_DETAIL_KEY = "book";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +55,15 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
-                Object item = adapter.mBooks.get(position);
+                adapterUpdateItemPosition = position;
                 if (textset){
                     intent.putExtra(BOOK_DETAIL_KEY, resultadapter.mBooks.get(position));
                 }else{
                     intent.putExtra(BOOK_DETAIL_KEY, adapter.mBooks.get(position));
                 }
 
-                startActivity(intent);
+//                startActivity(intent);
+                startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
             }
         });
     }
@@ -112,6 +115,15 @@ public class SearchActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if (requestCode == DetailActivity.REQUEST_UPDATE){
+                adapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+            }
+        }
     }
 
 }
