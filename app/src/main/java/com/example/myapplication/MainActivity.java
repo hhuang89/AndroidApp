@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent Search = new Intent(getBaseContext(), SearchActivity.class);
-                startActivity(Search);
+                startActivityForResult(Search, SearchActivity.REQUEST_UPDATE);
 
             }
         });
@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if (requestCode == ListActivity.REQUEST_UPDATE){
+                adapter.updateRecycleView((List<Book>) data.getSerializableExtra(updateRecycleViewKey));
+            } else if (requestCode == SearchActivity.REQUEST_UPDATE){
                 adapter.updateRecycleView((List<Book>) data.getSerializableExtra(updateRecycleViewKey));
             }
         }

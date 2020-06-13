@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     boolean textset;
 
     public static final String BOOK_DETAIL_KEY = "book";
-
+    public static int REQUEST_UPDATE = 30;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
