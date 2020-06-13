@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,9 +122,19 @@ public class SearchActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if (requestCode == DetailActivity.REQUEST_UPDATE){
-                adapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+                resultadapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+                //resultadapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        MainActivity.toppicks = MainActivity.sortView();
+        Intent intent = new Intent(this, MainActivity.class);
+//        MainActivity.toppicks = MainActivity.sortView();
+        intent.putExtra(MainActivity.updateRecycleViewKey, (Serializable) MainActivity.toppicks);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

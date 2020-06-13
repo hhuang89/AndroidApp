@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 Intent Search = new Intent(getBaseContext(), SearchActivity.class);
                 startActivity(Search);
+
             }
         });
     }

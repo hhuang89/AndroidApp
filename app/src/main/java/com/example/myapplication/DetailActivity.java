@@ -64,6 +64,7 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        MainActivity.toppicks = MainActivity.sortView();
         Intent intent = new Intent(this, ListActivity.class);
         intent.putExtra(ListActivity.BOOK_DETAIL_KEY, book);
         setResult(RESULT_OK, intent);

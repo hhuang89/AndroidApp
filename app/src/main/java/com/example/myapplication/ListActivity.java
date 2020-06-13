@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
-    ListView listView;
+    ListView listView,searchView;
     public static BookAdapter itemsAdapter;
     BookAdapter resultAdapter;
     public int adapterUpdateItemPosition;
@@ -108,78 +108,82 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
-        final MenuItem item = menu.findItem(R.id.search);
-        final SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                List<Book> results = new ArrayList<>();
-                if (newText != null){
-                    textset = true;
-                }else{
-                    textset = false;
-                }
-                if (fictionSearch){
-                    for (Book x:fiction){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
-                            results.add(x);
-                        }
-                    }
-                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    resultAdapter.update(results);
-                    listView.setAdapter(resultAdapter);
-                }else if (historySearch){
-                    for (Book x:history){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
-                            results.add(x);
-                        }
-                    }
-                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    resultAdapter.update(results);
-                    listView.setAdapter(resultAdapter);
-                }else if (businessSearch){
-                    for (Book x:business){
-                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
-                            results.add(x);
-                        }
-                    }
-                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
-                    resultAdapter.update(results);
-                    listView.setAdapter(resultAdapter);
-                }
-                return false;
-            }
-        });
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.search){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.search, menu);
+//        final MenuItem item = menu.findItem(R.id.search);
+//        final SearchView searchView = (SearchView) item.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                List<Book> results = new ArrayList<>();
+//                if (newText != null){
+//                    textset = true;
+//                }else{
+//                    textset = false;
+//                }
+//                if (fictionSearch){
+//                    for (Book x:fiction){
+//                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
+//                            results.add(x);
+//                        }
+//                    }
+//                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+//                    resultAdapter.update(results);
+//                    listView.setAdapter(resultAdapter);
+//                }else if (historySearch){
+//                    for (Book x:history){
+//                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
+//                            results.add(x);
+//                        }
+//                    }
+//                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+//                    resultAdapter.update(results);
+//                    listView.setAdapter(resultAdapter);
+//                }else if (businessSearch){
+//                    for (Book x:business){
+//                        if (x.getTitleName().toLowerCase().contains(newText.toLowerCase())){
+//                            results.add(x);
+//                        }
+//                    }
+//                    resultAdapter = new BookAdapter(ListActivity.this,R.layout.relative_layout,results);
+//                    resultAdapter.update(results);
+//                    listView.setAdapter(resultAdapter);
+//                }
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if(id == R.id.search){
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if (requestCode == DetailActivity.REQUEST_UPDATE){
                 itemsAdapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+                //resultAdapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
             }
         }
     }
+
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(this, MainActivity.class);
-        MainActivity.toppicks = MainActivity.sortView();
+//        MainActivity.toppicks = MainActivity.sortView();
         intent.putExtra(MainActivity.updateRecycleViewKey, (Serializable) MainActivity.toppicks);
         setResult(RESULT_OK, intent);
         finish();
