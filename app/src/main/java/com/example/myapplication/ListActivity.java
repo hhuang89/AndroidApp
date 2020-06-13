@@ -25,16 +25,16 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
     ListView listView;
-    BookAdapter itemsAdapter;
+    public static BookAdapter itemsAdapter;
     BookAdapter resultAdapter;
     public int adapterUpdateItemPosition;
     boolean fictionSearch = false;
     boolean historySearch = false;
     boolean businessSearch = false;
     boolean textset;
-    List<Book> fiction = DataProvider.getFictionBooks();
-    List<Book> history = DataProvider.getHistoryBooks();
-    List<Book> business = DataProvider.getBusinessBooks();
+    List<Book> fiction = MainActivity.Fiction;
+    List<Book> history = MainActivity.History;
+    List<Book> business = MainActivity.Business;
 
 
 
@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             if(category1.equals("fiction")){
-                List<Book> booksList = DataProvider.getFictionBooks();
+                List<Book> booksList = MainActivity.Fiction;
                 fictionSearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
@@ -65,20 +65,23 @@ public class ListActivity extends AppCompatActivity {
                 listView.setAdapter(itemsAdapter);
             }
             else if(category2.equals("history")){
-                List<Book> booksList = DataProvider.getHistoryBooks();
+                List<Book> booksList = MainActivity.History;
                 historySearch = true;
                 itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
                         booksList);
                 listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(itemsAdapter);
             }
-            else if(category3.equals("business")){
-                List<Book> booksList = DataProvider.getBusinessBooks();
-                businessSearch = true;
-                itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
-                        booksList);
-                listView = (ListView) findViewById(R.id.listView);
-                listView.setAdapter(itemsAdapter);
+            else {
+                assert category3 != null;
+                if(category3.equals("business")){
+                    List<Book> booksList = MainActivity.Business;
+                    businessSearch = true;
+                    itemsAdapter = new BookAdapter(this, R.layout.relative_layout,
+                            booksList);
+                    listView = (ListView) findViewById(R.id.listView);
+                    listView.setAdapter(itemsAdapter);
+                }
             }
             setupBookSelectedListener();
         }
@@ -91,16 +94,18 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                Object item = itemsAdapter.mBooks.get(position);
+                adapterUpdateItemPosition = position;
                 if (textset){
                     intent.putExtra(BOOK_DETAIL_KEY, resultAdapter.mBooks.get(position));
                 }else{
                     intent.putExtra(BOOK_DETAIL_KEY, itemsAdapter.mBooks.get(position));
                 }
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);

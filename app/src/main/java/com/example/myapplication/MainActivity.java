@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity  {
     static List<Book> Fiction = DataProvider.getFictionBooks();
     static List<Book> Business = DataProvider.getBusinessBooks();
     static List<Book> History = DataProvider.getHistoryBooks();
-    List<Book> toppicks;
+    static List<Book> toppicks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity  {
         //RecycleView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.top3View);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
-        //linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(false);
         recyclerView.setLayoutManager(linearLayoutManager);
         RecycleViewAdapter adapter = new RecycleViewAdapter(this, toppicks);
@@ -91,9 +90,6 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         Collections.sort(NumberOfClicks);
-        for (Book x:books){
-            NumberOfClicks.add(x.getCount());
-        }
         for (int y:NumberOfClicks){
             for (Book x:books){
                 if (x.getCount()==y){
