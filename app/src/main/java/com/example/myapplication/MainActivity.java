@@ -26,12 +26,13 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toppicks = sortView();
+
         //RecycleView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.top3View);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         linearLayoutManager.setReverseLayout(false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        toppicks = sortView();
         RecycleViewAdapter adapter = new RecycleViewAdapter(this, toppicks);
         recyclerView.setAdapter(adapter);
 
