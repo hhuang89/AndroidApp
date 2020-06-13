@@ -20,6 +20,7 @@ import android.widget.Filterable;
 import android.widget.ListView;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class ListActivity extends AppCompatActivity {
 
 
     public static final String BOOK_DETAIL_KEY = "book";
+    public static final int REQUEST_UPDATE = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,5 +175,13 @@ public class ListActivity extends AppCompatActivity {
                 itemsAdapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        MainActivity.toppicks = MainActivity.sortView();
+        intent.putExtra(MainActivity.updateRecycleViewKey, (Serializable) MainActivity.toppicks);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

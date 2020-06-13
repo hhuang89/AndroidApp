@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
-    int mLayoutID;
     List<Book> mBooks;
     Context mContext;
     LayoutInflater mInflater;
@@ -52,4 +51,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return 3;
     }
 
+    public void updateRecycleView(List<Book> object){
+        this.mBooks = object;
+        notifyDataSetChanged();
+    }
 }
