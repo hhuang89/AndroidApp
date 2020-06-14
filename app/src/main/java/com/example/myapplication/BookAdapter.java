@@ -67,6 +67,11 @@ public class BookAdapter extends ArrayAdapter {
         //title
         TextView titleTextView = (TextView) currentListViewItem.findViewById(R.id.rlTitle);
         titleTextView.setText(currentBook.getTitleName());
+
+        TextView numTextView = (TextView) currentListViewItem.findViewById(R.id.numView);
+        String num = "The number of clicks:";
+        numTextView.setText(num);
+
         //countView
         TextView viewTextView = (TextView) currentListViewItem.findViewById(R.id.rlView);
         viewTextView.setText(String.valueOf(currentBook.getCount()));

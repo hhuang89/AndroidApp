@@ -15,6 +15,7 @@ public class DetailActivity extends AppCompatActivity {
     CarouselView carouselView;
     TextView adTitle;
     TextView adAuthor;
+    TextView adContent;
     int[] resID;
     Book book;
     public static int REQUEST_UPDATE = 10;
@@ -26,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         adTitle = (TextView) findViewById(R.id.adTitle);
         adAuthor = (TextView) findViewById(R.id.adAuthor);
+        adContent =  (TextView) findViewById(R.id.adContent);
 
         Intent intent = getIntent();
         book = (Book) intent.getSerializableExtra(ListActivity.BOOK_DETAIL_KEY);
@@ -38,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         //this.setTitle(book.getTitleName());
         adTitle.setText(book.getTitleName());
         adAuthor.setText(book.getAuthorName());
+        adContent.setText(book.getContent());
 
         int i = getResources().getIdentifier(
                 book.getBookCoverName(), "drawable",

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Book implements Serializable {
 
-    String bookCoverName, titleName, authorName, image2, image3;
+    String bookCoverName, titleName, authorName, content, image2, image3;
     int count;
 
     public int getCount(){ return count; }
@@ -24,6 +24,9 @@ public class Book implements Serializable {
     public String getTitleName() {
         return titleName;
     }
+    public String getContent() {
+        return content;
+    }
 
     public String getImage2() {
         return image2;
@@ -33,10 +36,11 @@ public class Book implements Serializable {
         return image3;
     }
 
-    public Book(String bookCoverName, String titleName, String authorName, String image2, String image3, int count){
+    public Book(String bookCoverName, String titleName, String authorName, String content, String image2, String image3, int count){
         this.authorName = authorName;
         this.bookCoverName = bookCoverName;
         this.titleName = titleName;
+        this.content = content;
         this.image2 = image2;
         this.image3 = image3;
         this.count = count;

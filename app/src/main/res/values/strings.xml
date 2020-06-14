@@ -5,7 +5,7 @@
     <string name="category1">History</string>
     <string name="category2">Business and Investing</string>
     <string name="category3">Fiction</string>
-    <string name="Title">Top3 Picks</string>
+    <string name="Title">Top3 Picks Slide to view them</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -97,6 +97,13 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="number">number</string>
+    <string name="author">author</string>
+    <string name="test">test</string>
+    <string name="todo">TODO</string>
+    <string name="SearchIndicate">Want to find a book? Check it here!</string>
+    <string name="views" />
+
 
 
 </resources>

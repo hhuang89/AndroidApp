@@ -1,73 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-
-    <Button
-        android:id="@+id/Searchbutton"
-        style="@style/CategoryButtonSize"
-        android:layout_width="45dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/ic_search_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        style="@style/CategoryButtonSize"
-        android:layout_marginTop="348dp"
-        android:layout_marginEnd="48dp"
-        android:drawableStart="@drawable/fiction"
-        android:text="@string/category3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/history_button"
-        style="@style/CategoryButtonSize"
-        android:layout_marginTop="440dp"
-        android:text="@string/category1"
-        android:drawableStart="@drawable/history"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/business_button"
-        style="@style/CategoryButtonSize"
-        android:layout_marginTop="530dp"
-        android:text="@string/category2"
-        android:drawableStart="@drawable/business"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/top3View"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"/>
-
-    <TextView
-        android:id="@+id/editText"
-        android:layout_width="167dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="120dp"
-        android:autofillHints="@string/Title"
-        android:ems="10"
-        android:textSize="20dp"
-        android:hint="@string/Title"
-        android:inputType="textPersonName"
-        android:text="@string/Title"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/Searchbutton"
+
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="272dp"
+            android:layout_marginEnd="64dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/CategoryButtonSize"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="348dp"
+            android:layout_marginEnd="48dp"
+            android:drawableStart="@drawable/fiction"
+            android:text="@string/category3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/history_button"
+            style="@style/CategoryButtonSize"
+            android:layout_marginTop="440dp"
+            android:layout_marginEnd="48dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/history"
+            android:text="@string/category1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/business_button"
+            style="@style/CategoryButtonSize"
+            android:layout_marginTop="528dp"
+            android:layout_marginEnd="48dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/business"
+            android:text="@string/category2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/top3View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"/>
+
+        <TextView
+            android:id="@+id/editText"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="208dp"
+            android:layout_marginEnd="28dp"
+            android:autofillHints="@string/Title"
+            android:ems="10"
+            android:hint="@string/Title"
+            android:text="@string/Title"
+            android:textAlignment="center"
+            android:textColor="#F00"
+            android:textSize="25sp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/SearchIndication"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="276dp"
+            android:layout_marginEnd="164dp"
+            android:autofillHints="@string/Title"
+            android:ems="10"
+            android:hint="@string/Title"
+            android:text="@string/SearchIndicate"
+            android:textAlignment="center"
+            android:textColor="#01579B"
+            android:textSize="18sp"
+            android:textStyle="bold"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
