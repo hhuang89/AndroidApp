@@ -42,9 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         books.addAll(fiction);
         books.addAll(history);
         books.addAll(business);
-        adapter = new BookAdapter(this, R.layout.relative_layout,
-                books);
-        searchbooks.setAdapter(adapter);
+//        adapter = new BookAdapter(this, R.layout.relative_layout,
+//                books);
+//        searchbooks.setAdapter(adapter);
 
 
         setupBookSelectedListener();
@@ -57,13 +57,11 @@ public class SearchActivity extends AppCompatActivity {
                 // Launch the detail view passing book as an extra
                 Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
                 adapterUpdateItemPosition = position;
-                if (textset){
-                    intent.putExtra(BOOK_DETAIL_KEY, resultadapter.mBooks.get(position));
-                }else{
-                    intent.putExtra(BOOK_DETAIL_KEY, adapter.mBooks.get(position));
-                }
 
-//                startActivity(intent);
+                intent.putExtra(BOOK_DETAIL_KEY, resultadapter.mBooks.get(position));
+
+
+
                 startActivityForResult(intent, DetailActivity.REQUEST_UPDATE);
             }
         });
@@ -123,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK){
             if (requestCode == DetailActivity.REQUEST_UPDATE){
                 resultadapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
-                //resultadapter.updateListView(adapterUpdateItemPosition, (Book) data.getSerializableExtra(BOOK_DETAIL_KEY));
+
             }
         }
     }
@@ -131,7 +129,6 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         MainActivity.toppicks = MainActivity.sortView();
         Intent intent = new Intent(this, MainActivity.class);
-//        MainActivity.toppicks = MainActivity.sortView();
         intent.putExtra(MainActivity.updateRecycleViewKey, (Serializable) MainActivity.toppicks);
         setResult(RESULT_OK, intent);
         finish();
